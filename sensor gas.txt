@@ -1,0 +1,21 @@
+#define pGas A0
+#define ledV 2
+  void setup(){
+  Serial.begin(9600);
+  pinMode (ledV, OUTPUT);
+
+  }
+
+	void loop()
+     {
+     int sinalGas=analogRead(pGas);
+     	sinalGas=map(sinalGas, 300, 750, 0 , 100);
+      
+      Serial.println(sinalGas);
+     if (sinalGas > 0){
+     digitalWrite (ledV, HIGH);
+     }else{
+     digitalWrite (ledV, LOW);
+     }
+     delay(500);
+}
