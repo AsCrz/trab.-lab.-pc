@@ -1,0 +1,30 @@
+#define pTMP A1
+#define ledV 6
+#define ledA 7
+
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(ledV, OUTPUT);
+  pinMode(ledA, OUTPUT);
+    
+
+}
+
+void loop()
+{
+  int sinal=analogRead(pTMP);
+  float tensao=sinal*(5000.0/1024.0);
+  float temp=(tensao-500)/10.0;
+  Serial.println(temp);
+  
+  if(temp > 100){
+    digitalWrite(ledV, 1);
+    digitalWrite(ledA, 0);}
+  else if(temp<0){
+  	digitalWrite(ledV, 0);
+    digitalWrite(ledA, 1);}
+  else{ digitalWrite(ledV, 0);
+    	digitalWrite(ledA, 0);}
+    
+}
