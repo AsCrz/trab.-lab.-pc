@@ -1,0 +1,55 @@
+#include <Servo.h>
+
+#define led 3
+#define pSensor A0
+#define mth 5
+#define mta 6
+#define pServo 7
+#define pot A1
+
+Servo servo1;
+void setup()
+{
+  servo1.attach(pServo);
+  Serial.begin(9600);
+  
+  
+}
+
+void loop()
+{
+  //Sensor de luz
+  int leituraLuz = analogRead(pSensor);
+  Serial.print("Sinal = ");
+  Serial.print(leituraLuz);
+  float tensao = (leituraLuz*5)/1023.0;
+  Serial.print(" = ");
+  Serial.print(tensao);
+  Serial.println("Vcc");
+  
+  
+  
+    if (leituraLuz < 575){
+  	analogWrite(led, 255);    
+    }else{
+    analogWrite(led, 0);    
+ }
+       			
+  if(leituraLuz == 620){
+    analogWrite(mth, 255);
+    analogWrite(mta, 0);}
+  else if(leituraLuz == 575){
+    analogWrite(mth, 0);
+    analogWrite(mta, 255);}
+  else{	
+    analogWrite(mth, 0);
+    analogWrite(mta, 0);}
+
+  //Servo
+  int leituraPot = analogRead(pot);
+  byte angulo = map(leituraPot, 0, 1023, 0, 179);
+  
+  
+  servo1.write(angulo);
+
+}
